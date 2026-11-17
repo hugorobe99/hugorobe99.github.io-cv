@@ -26,13 +26,19 @@ nav b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.2rem;margin-right
 nav a{color:var(--ink);text-decoration:none;padding:6px 10px;border-radius:8px;font-size:.95rem}
 nav a:hover{background:var(--line)}
 button{font:inherit;cursor:pointer;color:inherit}
-.theme{border:1px solid var(--line);background:var(--panel);border-radius:99px;width:40px;height:40px;flex:none}
+.theme{border:1px solid var(--line);background:var(--panel);border-radius:99px;width:40px;height:40px;flex:none;margin-left:8px}
+
+.lang-switch { display: flex; gap: 4px; margin-left: 10px; border-left: 1px solid var(--line); padding-left: 10px; }
+.ls-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 0.8rem; font-weight: 700; color: var(--mute); transition: 0.2s; }
+.ls-btn:hover { border-color: var(--mute); }
+.ls-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
 .btn{display:inline-block;padding:12px 20px;border-radius:99px;border:2px solid var(--ink);background:none;font-weight:700;text-decoration:none;color:var(--ink);transition:transform .15s,background .15s}
 .btn:hover{transform:translateY(-2px)}
 .btn.main{background:var(--acc);border-color:var(--acc);color:#fff}
 .hero{padding-top:48px;display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
 .me{display:flex;gap:20px;align-items:center;margin-bottom:18px}
-.me img,.ph{width:116px;height:116px;border-radius:50%;object-fit:cover;border:4px solid var(--acc);flex:none;background:var(--panel)}
+.me img,.ph{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--acc);flex:none;background:var(--panel)}
 .ph{display:grid;place-items:center;font:800 2.2rem "Bricolage Grotesque"}
 .pill{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;border:1px solid var(--line);background:var(--panel);padding:4px 12px;border-radius:99px}
 .dot{width:10px;height:10px;border-radius:50%;background:#2BC16B;animation:pulse 1.6s infinite}
@@ -114,30 +120,41 @@ footer{text-align:center;color:var(--mute);font-size:.9rem;padding:28px 20px 40p
 <body>
 <nav><div class="wrap">
   <b>Hugo R.</b>
-  <a href="#sobre">Sobre mí</a><a href="#terminal">Terminal</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#skills">Skills</a><a href="#fuera">Fuera del código</a><a href="#contacto">Contacto</a>
-  <button class="theme" id="theme" aria-label="Cambiar entre tema claro y oscuro">🌓</button>
+  <a href="#sobre" data-i18n="nav_about">Sobre mí</a>
+  <a href="#terminal" data-i18n="nav_term">Terminal</a>
+  <a href="#experiencia" data-i18n="nav_exp">Experiencia</a>
+  <a href="#formacion" data-i18n="nav_edu">Formación</a>
+  <a href="#skills" data-i18n="nav_skills">Skills</a>
+  <a href="#fuera" data-i18n="nav_out">Fuera del código</a>
+  <a href="#contacto" data-i18n="nav_contact">Contacto</a>
+  <div class="lang-switch">
+    <button class="ls-btn active" onclick="setLang('es')" id="btn-es">ES</button>
+    <button class="ls-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="ls-btn" onclick="setLang('de')" id="btn-de">DE</button>
+  </div>
+  <button class="theme" id="theme" aria-label="Toggle theme">🌓</button>
 </div></nav>
 
 <header class="wrap hero">
   <div>
     <div class="me">
       <img src="foto_cv.jpeg" alt="Foto de Hugo Romero" onerror="this.outerHTML='<div class=ph>HR</div>'">
-      <span class="pill"><span class="dot"></span>Hugo está online</span>
+      <span class="pill"><span class="dot"></span><span data-i18n="status">Hugo está online</span></span>
     </div>
     <h1>Hugo Romero</h1>
     <div class="role" id="role" aria-live="off"></div>
-    <p class="lead">Técnico de sistemas que monitoriza servidores por la mañana, entrena modelos de IA cuando le sobra tiempo y juega al pádel cuando todo está en verde. Este es mi CV, pero con botones.</p>
+    <p class="lead" data-i18n="hero_lead">Técnico de sistemas que monitoriza servidores por la mañana, entrena modelos de IA cuando le sobra tiempo y juega al pádel cuando todo está en verde. Este es mi CV, pero con botones.</p>
     <div class="cta">
-      <a class="btn main" href="#contacto">Hablemos</a>
-      <a class="btn" href="CV-HugoRomero.pdf" download>Descargar CV en PDF</a>
+      <a class="btn main" href="#contacto" data-i18n="btn_talk">Hablemos</a>
+      <a class="btn" href="CV-HugoRomero.pdf" download data-i18n="btn_pdf">Descargar CV en PDF</a>
     </div>
   </div>
-  <div class="dash" aria-label="Panel de estadísticas">
-    <div class="panel"><small>Horas de prácticas</small><div class="v" data-n="800">0</div></div>
-    <div class="panel"><small>Certificaciones y cursos</small><div class="v" data-n="5">0</div></div>
-    <div class="panel"><small>Idiomas hablados</small><div class="v" data-n="3">0</div></div>
-    <div class="panel"><small>Buen humor (uptime)</small><div class="v">99,9%</div></div>
-    <div class="panel wide"><small>Nivel de curiosidad · en directo</small>
+  <div class="dash" aria-label="Dashboard">
+    <div class="panel"><small data-i18n="stat_prac">Horas de prácticas</small><div class="v" data-n="800">0</div></div>
+    <div class="panel"><small data-i18n="stat_cert">Certificaciones y cursos</small><div class="v" data-n="5">0</div></div>
+    <div class="panel"><small data-i18n="stat_lang">Idiomas hablados</small><div class="v" data-n="3">0</div></div>
+    <div class="panel"><small data-i18n="stat_mood">Buen humor (uptime)</small><div class="v">99,9%</div></div>
+    <div class="panel wide"><small data-i18n="stat_cur">Nivel de curiosidad · en directo</small>
       <svg class="sp" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true"><path class="a" id="area"/><path id="line"/></svg>
     </div>
   </div>
@@ -145,68 +162,68 @@ footer{text-align:center;color:var(--mute);font-size:.9rem;padding:28px 20px 40p
 
 <main class="wrap">
 <section id="sobre">
-  <h2>Quién hay detrás del terminal</h2>
+  <h2 data-i18n="sec_about">Quién hay detrás del terminal</h2>
   <div class="about">
     <div>
-      <p>Me llamo Hugo y la informática es lo que más me apasiona. Soy de esas personas que ven un cable, un servidor o un error raro en un log y piensan: «vale, esto tiene una historia, vamos a descubrirla».</p>
-      <p>Empecé por lo básico, con el ciclo de <b>Sistemas Microinformáticos y Redes</b>, y seguí con <b>Administración de Sistemas Informáticos en Red</b>. Por el camino me ha dado por todo lo que rodea a los sistemas: redes, bases de datos, Big Data, automatización, inteligencia artificial y hasta desarrollo web. Lo bueno de saber un poco de todo es que cuando algo falla sé a quién preguntar. A veces, a mí mismo.</p>
-      <p>Me defino como sociable, puntual, trabajador, imaginativo y resolutivo. Toca las tarjetas de al lado y te cuento qué significa cada una en la práctica.</p>
+      <p data-i18n-html="about_p1">Me llamo Hugo y la informática es lo que más me apasiona. Soy de esas personas que ven un cable, un servidor o un error raro en un log y piensan: «vale, esto tiene una historia, vamos a descubrirla».</p>
+      <p data-i18n-html="about_p2">Empecé por lo básico, con el ciclo de <b>Sistemas Microinformáticos y Redes</b>, y seguí con <b>Administración de Sistemas Informáticos en Red</b>. Por el camino me ha dado por todo lo que rodea a los sistemas: redes, bases de datos, Big Data, automatización, inteligencia artificial y hasta desarrollo web. Lo bueno de saber un poco de todo es que cuando algo falla sé a quién preguntar. A veces, a mí mismo.</p>
+      <p data-i18n-html="about_p3">Me defino como sociable, puntual, trabajador, imaginativo y resolutivo. Toca las tarjetas de al lado y te cuento qué significa cada una en la práctica.</p>
     </div>
     <div class="traits" id="traits"></div>
   </div>
 </section>
 
 <section id="terminal">
-  <h2>Pregúntale a mi terminal</h2>
-  <p class="lead">Escribe un comando o pulsa uno de los botones. Hay un par de secretos escondidos.</p>
+  <h2 data-i18n="sec_term">Pregúntale a mi terminal</h2>
+  <p class="lead" data-i18n="lead_term">Escribe un comando o pulsa uno de los botones. Hay un par de secretos escondidos.</p>
   <div class="term">
     <div class="bar"><i></i><i></i><i></i></div>
     <div id="out" role="log"></div>
-    <form id="f"><label for="cmd">hugo@cv:~$</label><input id="cmd" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send" placeholder="escribe help" aria-label="Comando"><button type="submit" class="send">Enviar</button></form>
+    <form id="f"><label for="cmd">hugo@cv:~$</label><input id="cmd" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send" placeholder="escribe help" aria-label="Comando"><button type="submit" class="send" data-i18n="btn_send">Enviar</button></form>
   </div>
   <div class="chips" id="cmds"></div>
 </section>
 
 <section id="experiencia">
-  <h2>Dónde he estado trabajando</h2>
-  <p class="lead">Dos experiencias de prácticas, 800 horas en total y mundos muy distintos. Pulsa en cada una para abrirla.</p>
+  <h2 data-i18n="sec_exp">Dónde he estado trabajando</h2>
+  <p class="lead" data-i18n="lead_exp">Dos experiencias de prácticas, 800 horas en total y mundos muy distintos. Pulsa en cada una para abrirla.</p>
   <div class="tl">
     <details open>
-      <summary><h3>Técnico de soporte N2</h3><span>Prácticas · 320 h · 2025–2026</span></summary>
+      <summary><h3 data-i18n="exp1_title">Técnico de soporte N2</h3><span data-i18n="exp1_sub">Prácticas · 320 h · 2025–2026</span></summary>
       <ul>
-        <li><em>Monitorización y métricas (Grafana / Kibana).</em> Mirar paneles, interpretar gráficas y detectar que algo se tuerce antes de que lo note el usuario.</li>
-        <li><em>Mantenimiento de infraestructura y almacenamiento.</em> Que los servidores tengan sitio, salud y espacio. Lo que no se ve, pero sin lo cual nada funciona.</li>
-        <li><em>Administración de bases de datos.</em> Cuidar los datos de la empresa como si fueran los míos.</li>
-        <li><em>Gestión de identidades y accesos.</em> Quién entra, adónde y con qué permisos. Dicho de otra forma: portero de discoteca, pero de sistemas.</li>
-        <li><em>Resolución de incidencias N2.</em> Cuando el problema ya no es de primera línea, entro yo con la lupa.</li>
+        <li data-i18n-html="exp1_l1"><em>Monitorización y métricas (Grafana / Kibana).</em> Mirar paneles, interpretar gráficas y detectar que algo se tuerce antes de que lo note el usuario.</li>
+        <li data-i18n-html="exp1_l2"><em>Mantenimiento de infraestructura y almacenamiento.</em> Que los servidores tengan sitio, salud y espacio. Lo que no se ve, pero sin lo cual nada funciona.</li>
+        <li data-i18n-html="exp1_l3"><em>Administración de bases de datos.</em> Cuidar los datos de la empresa como si fueran los míos.</li>
+        <li data-i18n-html="exp1_l4"><em>Gestión de identidades y accesos.</em> Quién entra, adónde y con qué permisos. Dicho de otra forma: portero de discoteca, pero de sistemas.</li>
+        <li data-i18n-html="exp1_l5"><em>Resolución de incidencias N2.</em> Cuando el problema ya no es de primera línea, entro yo con la lupa.</li>
       </ul>
     </details>
     <details>
-      <summary><h3>Desarrollador web en Cuidum</h3><span>Prácticas · 480 h</span></summary>
+      <summary><h3 data-i18n="exp2_title">Desarrollador web en Cuidum</h3><span data-i18n="exp2_sub">Prácticas · 480 h</span></summary>
       <ul>
-        <li><em>Una web funcional y optimizada</em> con React, JavaScript y Git. Rápida, ordenada y con historial de cambios.</li>
-        <li><em>Interfaz intuitiva y atractiva</em> pensando siempre en quien la usa: si hay que explicarla, no está terminada.</li>
-        <li><em>Backend y frontend.</em> Me tocó trabajar las dos mitades de la tarta, y eso te enseña a entender al compañero de enfrente.</li>
+        <li data-i18n-html="exp2_l1"><em>Una web funcional y optimizada</em> con React, JavaScript y Git. Rápida, ordenada y con historial de cambios.</li>
+        <li data-i18n-html="exp2_l2"><em>Interfaz intuitiva y atractiva</em> pensando siempre en quien la usa: si hay que explicarla, no está terminada.</li>
+        <li data-i18n-html="exp2_l3"><em>Backend y frontend.</em> Me tocó trabajar las dos mitades de la tarta, y eso te enseña a entender al compañero de enfrente.</li>
       </ul>
     </details>
   </div>
 </section>
 
 <section id="formacion">
-  <h2>Lo que he estudiado</h2>
+  <h2 data-i18n="sec_edu">Lo que he estudiado</h2>
   <div class="cards">
-    <div class="card"><h3>Técnico Superior en Administración de Sistemas Informáticos en Red</h3><p>IES Font de San Lluís. Servidores, redes, seguridad y servicios: el ciclo donde todo se junta.</p></div>
-    <div class="card"><h3>Técnico en Sistemas Microinformáticos y Redes</h3><p>IES Font de San Lluís. Donde empezó todo: hardware, sistemas y las primeras redes.</p></div>
+    <div class="card"><h3 data-i18n="edu1_title">Técnico Superior en Administración de Sistemas Informáticos en Red</h3><p data-i18n="edu1_desc">IES Font de San Lluís. Servidores, redes, seguridad y servicios: el ciclo donde todo se junta.</p></div>
+    <div class="card"><h3 data-i18n="edu2_title">Técnico en Sistemas Microinformáticos y Redes</h3><p data-i18n="edu2_desc">IES Font de San Lluís. Donde empezó todo: hardware, sistemas y las primeras redes.</p></div>
   </div>
-  <h3 style="margin:28px 0 4px;font-size:1.4rem">Certificaciones y cursos</h3>
+  <h3 style="margin:28px 0 4px;font-size:1.4rem" data-i18n="sec_certs">Certificaciones y cursos</h3>
   <div class="chips">
-    <span class="chip">CCNA 1 &amp; 2</span><span class="chip">Introduction to Cybersecurity</span><span class="chip">Linux Essentials</span><span class="chip">IT Essentials</span><span class="chip">AWS Technical Essentials</span><span class="chip">Permiso de conducir B1</span>
+    <span class="chip">CCNA 1 &amp; 2</span><span class="chip">Introduction to Cybersecurity</span><span class="chip">Linux Essentials</span><span class="chip">IT Essentials</span><span class="chip">AWS Technical Essentials</span><span class="chip" data-i18n="cert_drv">Permiso de conducir B1</span>
   </div>
 </section>
 
 <section id="skills">
-  <h2>Mi caja de herramientas</h2>
-  <p class="lead">Elige una categoría y pulsa en las herramientas para marcarlas.</p>
+  <h2 data-i18n="sec_skills">Mi caja de herramientas</h2>
+  <p class="lead" data-i18n="lead_skills">Elige una categoría y pulsa en las herramientas para marcarlas.</p>
   <div class="tabs" id="tabs" role="tablist"></div>
   <div class="chips" id="chips"></div>
   <p class="blurb" id="blurb"></p>
@@ -214,41 +231,261 @@ footer{text-align:center;color:var(--mute);font-size:.9rem;padding:28px 20px 40p
 </section>
 
 <section id="idiomas">
-  <h2>Idiomas</h2>
-  <div class="lang"><b>Español</b><div class="bar2"><i data-w="100"></i></div><span>Nativo</span></div>
-  <div class="lang"><b>Valenciano</b><div class="bar2"><i data-w="100"></i></div><span>Nativo</span></div>
-  <div class="lang"><b>Inglés</b><div class="bar2"><i data-w="55"></i></div><span>Medio</span></div>
-  <p class="lead">El inglés técnico lo uso a diario (documentación, logs y foros). Lo que sigo mejorando es la conversación.</p>
+  <h2 data-i18n="sec_lang">Idiomas</h2>
+  <div class="lang"><b data-i18n="lang_es">Español</b><div class="bar2"><i data-w="100"></i></div><span data-i18n="lvl_nat">Nativo</span></div>
+  <div class="lang"><b data-i18n="lang_val">Valenciano</b><div class="bar2"><i data-w="100"></i></div><span data-i18n="lvl_nat">Nativo</span></div>
+  <div class="lang"><b data-i18n="lang_en">Inglés</b><div class="bar2"><i data-w="55"></i></div><span data-i18n="lvl_med">Medio</span></div>
+  <p class="lead" data-i18n="lang_lead" style="margin-top:16px">El inglés técnico lo uso a diario (documentación, logs y foros). Lo que sigo mejorando es la conversación.</p>
 </section>
 
 <section id="fuera">
-  <h2>Cuando apago el ordenador</h2>
-  <p class="lead">He pasado buena parte de mi vida practicando deporte, y también me encanta viajar.</p>
+  <h2 data-i18n="sec_out">Cuando apago el ordenador</h2>
+  <p class="lead" data-i18n="lead_out">He pasado buena parte de mi vida practicando deporte, y también me encanta viajar.</p>
   <div class="cards">
-    <div class="card"><div class="sport">🏊</div><h3>Natación</h3><p>Donde aprendí que la constancia gana a las prisas, igual que en sistemas.</p></div>
-    <div class="card"><div class="sport">🥊</div><h3>Boxeo</h3><p>Aguantar la presión y mantener la calma, una gran preparación para un jueves de incidencias.</p></div>
-    <div class="card"><div class="sport">🎾</div><h3>Pádel</h3><p>Mi parada actual. Se juega en equipo, hay que comunicarse y siempre hay revancha.</p></div>
-    <div class="card"><div class="sport">✈️</div><h3>Viajar</h3><p>Conocer sitios y gente nueva. Mi forma favorita de cambiar de entorno.</p></div>
+    <div class="card"><div class="sport">🏊</div><h3 data-i18n="hob1_t">Natación</h3><p data-i18n="hob1_p">Donde aprendí que la constancia gana a las prisas, igual que en sistemas.</p></div>
+    <div class="card"><div class="sport">🥊</div><h3 data-i18n="hob2_t">Boxeo</h3><p data-i18n="hob2_p">Aguantar la presión y mantener la calma, una gran preparación para un jueves de incidencias.</p></div>
+    <div class="card"><div class="sport">🎾</div><h3 data-i18n="hob3_t">Pádel</h3><p data-i18n="hob3_p">Mi parada actual. Se juega en equipo, hay que comunicarse y siempre hay revancha.</p></div>
+    <div class="card"><div class="sport">✈️</div><h3 data-i18n="hob4_t">Viajar</h3><p data-i18n="hob4_p">Conocer sitios y gente nueva. Mi forma favorita de cambiar de entorno.</p></div>
   </div>
 </section>
 
 <section id="contacto" class="contact">
-  <h2>¿Hablamos?</h2>
-  <p class="lead" style="margin:0 auto 20px">Si tienes unas prácticas, un puesto o un problema raro en un servidor, escríbeme.</p>
+  <h2 data-i18n="sec_contact">¿Hablamos?</h2>
+  <p class="lead" style="margin:0 auto 20px" data-i18n="lead_contact">Si tienes unas prácticas, un puesto o un problema raro en un servidor, escríbeme.</p>
   <div class="cta">
-    <button class="btn main" id="copy">Copiar mi email</button>
-    <a class="btn" href="mailto:romerobergillo@gmail.com">Enviar correo</a>
+    <button class="btn main" id="copy" data-i18n="btn_copy">Copiar mi email</button>
+    <a class="btn" href="mailto:romerobergillo@gmail.com" data-i18n="btn_email">Enviar correo</a>
     <a class="btn" href="https://www.linkedin.com/in/hugo-romero-bergillo/" target="_blank" rel="noopener">LinkedIn</a>
   </div>
 </section>
 </main>
-<footer>Hecho a mano con HTML, CSS y JavaScript · Hugo Romero Bergillo</footer>
+<footer data-i18n="footer">Hecho a mano con HTML, CSS y JavaScript · Hugo Romero Bergillo</footer>
 <div id="toast" role="status"></div>
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)};
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let currentLang = 'es';
+
+/* --- DICCIONARIO COMPLETO (I18N) --- */
+const i18n = {
+  es: {
+    nav_about: "Sobre mí", nav_term: "Terminal", nav_exp: "Experiencia", nav_edu: "Formación", nav_skills: "Skills", nav_out: "Fuera del código", nav_contact: "Contacto",
+    status: "Hugo está online",
+    hero_lead: "Técnico de sistemas que monitoriza servidores por la mañana, entrena modelos de IA cuando le sobra tiempo y juega al pádel cuando todo está en verde. Este es mi CV, pero con botones.",
+    btn_talk: "Hablemos", btn_pdf: "Descargar CV en PDF",
+    stat_prac: "Horas de prácticas", stat_cert: "Certificaciones y cursos", stat_lang: "Idiomas hablados", stat_mood: "Buen humor (uptime)", stat_cur: "Nivel de curiosidad · en directo",
+    sec_about: "Quién hay detrás del terminal",
+    about_p1: "Me llamo Hugo y la informática es lo que más me apasiona. Soy de esas personas que ven un cable, un servidor o un error raro en un log y piensan: «vale, esto tiene una historia, vamos a descubrirla».",
+    about_p2: "Empecé por lo básico, con el ciclo de <b>Sistemas Microinformáticos y Redes</b>, y seguí con <b>Administración de Sistemas Informáticos en Red</b>. Por el camino me ha dado por todo lo que rodea a los sistemas: redes, bases de datos, Big Data, automatización, inteligencia artificial y hasta desarrollo web. Lo bueno de saber un poco de todo es que cuando algo falla sé a quién preguntar. A veces, a mí mismo.",
+    about_p3: "Me defino como sociable, puntual, trabajador, imaginativo y resolutivo. Toca las tarjetas de al lado y te cuento qué significa cada una en la práctica.",
+    sec_term: "Pregúntale a mi terminal", lead_term: "Escribe un comando o pulsa uno de los botones. Hay un par de secretos escondidos.", btn_send: "Enviar",
+    sec_exp: "Dónde he estado trabajando", lead_exp: "Dos experiencias de prácticas, 800 horas en total y mundos muy distintos. Pulsa en cada una para abrirla.",
+    exp1_title: "Técnico de soporte N2", exp1_sub: "Prácticas · 320 h · 2025–2026",
+    exp1_l1: "<em>Monitorización y métricas (Grafana / Kibana).</em> Mirar paneles, interpretar gráficas y detectar que algo se tuerce antes de que lo note el usuario.",
+    exp1_l2: "<em>Mantenimiento de infraestructura y almacenamiento.</em> Que los servidores tengan sitio, salud y espacio. Lo que no se ve, pero sin lo cual nada funciona.",
+    exp1_l3: "<em>Administración de bases de datos.</em> Cuidar los datos de la empresa como si fueran los míos.",
+    exp1_l4: "<em>Gestión de identidades y accesos.</em> Quién entra, adónde y con qué permisos. Dicho de otra forma: portero de discoteca, pero de sistemas.",
+    exp1_l5: "<em>Resolución de incidencias N2.</em> Cuando el problema ya no es de primera línea, entro yo con la lupa.",
+    exp2_title: "Desarrollador web en Cuidum", exp2_sub: "Prácticas · 480 h",
+    exp2_l1: "<em>Una web funcional y optimizada</em> con React, JavaScript y Git. Rápida, ordenada y con historial de cambios.",
+    exp2_l2: "<em>Interfaz intuitiva y atractiva</em> pensando siempre en quien la usa: si hay que explicarla, no está terminada.",
+    exp2_l3: "<em>Backend y frontend.</em> Me tocó trabajar las dos mitades de la tarta, y eso te enseña a entender al compañero de enfrente.",
+    sec_edu: "Lo que he estudiado", sec_certs: "Certificaciones y cursos", cert_drv: "Permiso de conducir B1",
+    edu1_title: "Técnico Superior en Administración de Sistemas Informáticos en Red", edu1_desc: "IES Font de San Lluís. Servidores, redes, seguridad y servicios: el ciclo donde todo se junta.",
+    edu2_title: "Técnico en Sistemas Microinformáticos y Redes", edu2_desc: "IES Font de San Lluís. Donde empezó todo: hardware, sistemas y las primeras redes.",
+    sec_skills: "Mi caja de herramientas", lead_skills: "Elige una categoría y pulsa en las herramientas para marcarlas.",
+    sec_lang: "Idiomas", lang_es: "Español", lang_val: "Valenciano", lang_en: "Inglés", lvl_nat: "Nativo", lvl_med: "Medio", lang_lead: "El inglés técnico lo uso a diario (documentación, logs y foros). Lo que sigo mejorando es la conversación.",
+    sec_out: "Cuando apago el ordenador", lead_out: "He pasado buena parte de mi vida practicando deporte, y también me encanta viajar.",
+    hob1_t: "Natación", hob1_p: "Donde aprendí que la constancia gana a las prisas, igual que en sistemas.",
+    hob2_t: "Boxeo", hob2_p: "Aguantar la presión y mantener la calma, una gran preparación para un jueves de incidencias.",
+    hob3_t: "Pádel", hob3_p: "Mi parada actual. Se juega en equipo, hay que comunicarse y siempre hay revancha.",
+    hob4_t: "Viajar", hob4_p: "Conocer sitios y gente nueva. Mi forma favorita de cambiar de entorno.",
+    sec_contact: "¿Hablamos?", lead_contact: "Si tienes unas prácticas, un puesto o un problema raro en un servidor, escríbeme.", btn_copy: "Copiar mi email", btn_email: "Enviar correo",
+    footer: "Hecho a mano con HTML, CSS y JavaScript · Hugo Romero Bergillo",
+    tap_view: "Toca para ver", site_visit: "Visitar la web ↗", term_ph: "escribe help", term_welcome: "Bienvenido. Escribe help para ver qué sé hacer.", term_err: "comando no encontrado:",
+    roles: ['Técnico de soporte N2','Admin de sistemas en formación','Aprendiz de IA y MLOps','Cazador de incidencias','Jugador de pádel'],
+    traits: [['Sociable','Hablar con el usuario también es parte de arreglar el problema.'],['Puntual','Si digo las 9:00, a las 8:55 ya estoy conectado.'],['Trabajador','No me asusta el trabajo largo, me asusta el que está mal hecho.'],['Imaginativo','Cuando la solución de manual no vale, toca inventar una mejor.'],['Resolutivo','Un problema es una pregunta con la respuesta aún por encontrar.']],
+    skillsData: {
+      'Sistemas y soporte': {t:['Linux','Windows Server','Gestión de identidades (IAM)','Routing y switching (CCNA)','Grafana','Kibana','Análisis de métricas y logs','Incidencias N2'],b:'Que todo funcione, que nadie se quede sin acceso y que los problemas se detecten antes de dar la cara.'},
+      'Datos y Big Data': {t:['Apache Spark (PySpark)','Pipelines ETL','Python','Pandas','NumPy','SQL','NoSQL','n8n','Make'],b:'Coger montañas de datos desordenados y convertirlos en algo útil. Y automatizar lo repetitivo, porque la vida es corta.'},
+      'IA y despliegue': {t:['Scikit-Learn','PyTorch','TensorFlow','Redes neuronales','Docker','FastAPI','Git'],b:'Entrenar modelos, meterlos en un contenedor y ofrecerlos por API. Un modelo que no sale del portátil no ayuda a nadie.'},
+      'Web': {t:['React','JavaScript','Git','Frontend','Backend','Diseño de interfaz'],b:'Páginas rápidas y agradables, con la experiencia de usuario como prioridad. Y no solo en teoría: he creado dos webs que están online ahora mismo.',s:[
+        ['Grupo Scout Wig-Wam','https://gswigwam.com/','La web del grupo scout de Benicalap: quiénes son, su historia, las secciones, documentos y contacto, además de sus novedades de Instagram.'],
+        ['Gorilas Boxing Club','https://gorilasboxingclub.es/','La web de un club de boxeo: información del club, horarios y tarifas, comunidad, tienda y acceso a la cuenta de cada socio.']]}
+    },
+    termCmds: {
+      help: 'Comandos: whoami, skills, exp, deporte, idiomas, contacto, sudo hire hugo, clear',
+      whoami: 'Hugo Romero. Técnico de sistemas con alma de curioso. Sociable, puntual, trabajador, imaginativo y resolutivo.',
+      skills: 'Linux · Windows Server · IAM · CCNA · Grafana · Spark · Python · SQL/NoSQL · Docker · FastAPI · PyTorch · React · Git · n8n · Make',
+      exp: 'Soporte N2 (320 h, 2025-2026) y Desarrollo web en Cuidum (480 h). Total: 800 horas de aprendizaje real.',
+      deporte: 'Natación → boxeo → pádel. Evolución natural: de nadar solo a jugar por parejas.',
+      idiomas: 'Español: nativo. Valenciano: nativo. Inglés: medio y subiendo.',
+      contacto: 'romerobergillo@gmail.com (o baja hasta el final de la página).',
+      'sudo hire hugo': '[sudo] permisos concedidos. Contratación en curso... 100%. Buena decisión.',
+      'sudo rm -rf /': 'Permiso denegado. Aquí cuidamos los servidores. Y los de otros también.',
+      ls: 'sobre_mi.txt  experiencia/  formacion/  skills/  pelota_de_padel.png',
+      ping: 'Respuesta desde hugo: tiempo=1 ms. Siempre disponible para un café.',
+      coffee: '☕ Café servido. Nivel de curiosidad +10.'
+    }
+  },
+  en: {
+    nav_about: "About me", nav_term: "Terminal", nav_exp: "Experience", nav_edu: "Education", nav_skills: "Skills", nav_out: "Off-screen", nav_contact: "Contact",
+    status: "Hugo is online",
+    hero_lead: "Systems technician monitoring servers by morning, training AI models in my spare time, and playing padel when everything is green. This is my CV, but with buttons.",
+    btn_talk: "Let's talk", btn_pdf: "Download PDF CV",
+    stat_prac: "Internship hours", stat_cert: "Certifications & courses", stat_lang: "Spoken languages", stat_mood: "Good mood (uptime)", stat_cur: "Curiosity level · live",
+    sec_about: "Who is behind the terminal",
+    about_p1: "My name is Hugo and computing is my biggest passion. I'm one of those people who sees a cable, a server, or a weird error in a log and thinks: «okay, there's a story here, let's discover it».",
+    about_p2: "I started with the basics, in <b>Microcomputer Systems and Networks</b>, and continued with <b>Networked Computer Systems Administration</b>. Along the way, I got into everything surrounding systems: networks, databases, Big Data, automation, AI, and even web development. The good thing about knowing a bit of everything is that when something fails, I know who to ask. Sometimes, myself.",
+    about_p3: "I define myself as sociable, punctual, hardworking, imaginative, and decisive. Tap the cards to the side and I'll tell you what each one means in practice.",
+    sec_term: "Ask my terminal", lead_term: "Type a command or click one of the buttons. There are a couple of hidden secrets.", btn_send: "Send",
+    sec_exp: "Where I've been working", lead_exp: "Two internship experiences, 800 hours in total and very different worlds. Click on each to open.",
+    exp1_title: "L2 Support Technician", exp1_sub: "Internship · 320 h · 2025–2026",
+    exp1_l1: "<em>Monitoring and metrics (Grafana / Kibana).</em> Looking at dashboards, interpreting graphs, and detecting if something goes wrong before the user notices.",
+    exp1_l2: "<em>Infrastructure and storage maintenance.</em> Making sure servers have space, health, and capacity. What you don't see, but without which nothing works.",
+    exp1_l3: "<em>Database administration.</em> Taking care of company data as if it were my own.",
+    exp1_l4: "<em>Identity and access management (IAM).</em> Who enters, where, and with what permissions. In other words: a bouncer, but for systems.",
+    exp1_l5: "<em>L2 Incident resolution.</em> When the problem is no longer frontline, I step in with a magnifying glass.",
+    exp2_title: "Web Developer at Cuidum", exp2_sub: "Internship · 480 h",
+    exp2_l1: "<em>A functional and optimized website</em> with React, JavaScript, and Git. Fast, tidy, and with a change history.",
+    exp2_l2: "<em>Intuitive and attractive interface</em> always thinking of the user: if you have to explain it, it's not finished.",
+    exp2_l3: "<em>Backend and frontend.</em> I had to work on both halves of the cake, which teaches you to understand your colleagues.",
+    sec_edu: "What I've studied", sec_certs: "Certifications & courses", cert_drv: "B1 Driving License",
+    edu1_title: "Higher Technician in Network Computer Systems Administration", edu1_desc: "IES Font de San Lluís. Servers, networks, security, and services: the degree where everything comes together.",
+    edu2_title: "Technician in Microcomputer Systems and Networks", edu2_desc: "IES Font de San Lluís. Where it all started: hardware, OS, and the first networks.",
+    sec_skills: "My toolbox", lead_skills: "Choose a category and click on the tools to check them.",
+    sec_lang: "Languages", lang_es: "Spanish", lang_val: "Valencian", lang_en: "English", lvl_nat: "Native", lvl_med: "Intermediate", lang_lead: "I use technical English daily (documentation, logs, and forums). What I keep improving is my conversation skills.",
+    sec_out: "When I turn off the computer", lead_out: "I've spent a good part of my life practicing sports, and I also love traveling.",
+    hob1_t: "Swimming", hob1_p: "Where I learned that consistency beats rushing, just like in systems.",
+    hob2_t: "Boxing", hob2_p: "Withstanding pressure and keeping calm, a great preparation for a Thursday full of incidents.",
+    hob3_t: "Padel", hob3_p: "My current stop. It's played as a team, requires communication, and there's always a rematch.",
+    hob4_t: "Traveling", hob4_p: "Meeting new places and people. My favorite way to change environments.",
+    sec_contact: "Shall we talk?", lead_contact: "If you have an internship, a position, or a weird problem on a server, write to me.", btn_copy: "Copy my email", btn_email: "Send email",
+    footer: "Handmade with HTML, CSS and JavaScript · Hugo Romero Bergillo",
+    tap_view: "Tap to view", site_visit: "Visit website ↗", term_ph: "type help", term_welcome: "Welcome. Type help to see what I can do.", term_err: "command not found:",
+    roles: ['L2 Support Technician','Systems Admin in training','AI & MLOps Apprentice','Incident Hunter','Padel Player'],
+    traits: [['Sociable','Talking to the user is also part of fixing the problem.'],['Punctual','If I say 9:00, I am online by 8:55.'],['Hardworking','I am not afraid of long work, I am afraid of bad work.'],['Imaginative','When the manual solution fails, it is time to invent a better one.'],['Decisive','A problem is just a question with an answer yet to be found.']],
+    skillsData: {
+      'Systems & Support': {t:['Linux','Windows Server','Identity Management (IAM)','Routing & Switching (CCNA)','Grafana','Kibana','Metrics & Logs analysis','L2 Incidents'],b:'Keeping everything running, ensuring access, and detecting problems before they show up.'},
+      'Data & Big Data': {t:['Apache Spark (PySpark)','ETL Pipelines','Python','Pandas','NumPy','SQL','NoSQL','n8n','Make'],b:'Taking mountains of messy data and turning it into something useful. And automating the repetitive, because life is short.'},
+      'AI & Deployment': {t:['Scikit-Learn','PyTorch','TensorFlow','Neural Networks','Docker','FastAPI','Git'],b:'Training models, putting them in a container, and offering them via API. A model stuck on a laptop helps no one.'},
+      'Web': {t:['React','JavaScript','Git','Frontend','Backend','UI Design'],b:'Fast and pleasant pages, with UX as a priority. And not just in theory: I have created two websites that are online right now.',s:[
+        ['Scout Group Wig-Wam','https://gswigwam.com/','The website for the Benicalap scout group: who they are, history, sections, docs, contact, and their latest Instagram news.'],
+        ['Gorilas Boxing Club','https://gorilasboxingclub.es/','A boxing club website: club info, schedules and pricing, community, store, and member account access.']]}
+    },
+    termCmds: {
+      help: 'Commands: whoami, skills, exp, sports, languages, contact, sudo hire hugo, clear',
+      whoami: 'Hugo Romero. Systems tech with a curious soul. Sociable, punctual, hardworking, imaginative, and decisive.',
+      skills: 'Linux · Windows Server · IAM · CCNA · Grafana · Spark · Python · SQL/NoSQL · Docker · FastAPI · PyTorch · React · Git · n8n · Make',
+      exp: 'L2 Support (320 h, 2025-2026) and Web Dev at Cuidum (480 h). Total: 800 hours of real learning.',
+      sports: 'Swimming → boxing → padel. Natural evolution: from swimming alone to playing in pairs.',
+      languages: 'Spanish: native. Valencian: native. English: intermediate and rising.',
+      contact: 'romerobergillo@gmail.com (or scroll to the bottom of the page).',
+      'sudo hire hugo': '[sudo] permissions granted. Hiring in progress... 100%. Good choice.',
+      'sudo rm -rf /': 'Permission denied. We take care of servers here. And other people\'s servers too.',
+      ls: 'about_me.txt  experience/  education/  skills/  padel_ball.png',
+      ping: 'Reply from hugo: time=1 ms. Always available for a coffee.',
+      coffee: '☕ Coffee served. Curiosity level +10.'
+    }
+  },
+  de: {
+    nav_about: "Über mich", nav_term: "Terminal", nav_exp: "Erfahrung", nav_edu: "Ausbildung", nav_skills: "Fähigkeiten", nav_out: "Freizeit", nav_contact: "Kontakt",
+    status: "Hugo ist online",
+    hero_lead: "Systemtechniker, der morgens Server überwacht, in seiner Freizeit KI-Modelle trainiert und Padel spielt, wenn alles im grünen Bereich ist. Das ist mein Lebenslauf, aber mit Knöpfen.",
+    btn_talk: "Lass uns reden", btn_pdf: "Lebenslauf als PDF",
+    stat_prac: "Praktikumsstunden", stat_cert: "Zertifikate & Kurse", stat_lang: "Gesprochene Sprachen", stat_mood: "Gute Laune (Uptime)", stat_cur: "Neugier-Level · live",
+    sec_about: "Wer steckt hinter dem Terminal",
+    about_p1: "Ich heiße Hugo und Informatik ist meine größte Leidenschaft. Ich bin einer dieser Menschen, die ein Kabel, einen Server oder einen seltsamen Fehler in einem Log sehen und denken: «Okay, hier gibt es eine Geschichte, lass sie uns herausfinden».",
+    about_p2: "Ich habe mit den Grundlagen in <b>Mikrocomputersysteme und Netzwerke</b> begonnen und dann <b>Netzwerksystemadministration</b> gemacht. Auf dem Weg dorthin habe ich mich mit allem rund um Systeme beschäftigt: Netzwerke, Datenbanken, Big Data, Automatisierung, KI und sogar Webentwicklung. Das Gute daran, von allem etwas zu wissen, ist, dass ich weiß, wen ich fragen muss, wenn etwas schiefgeht. Manchmal mich selbst.",
+    about_p3: "Ich bezeichne mich als gesellig, pünktlich, fleißig, einfallsreich und entschlossen. Tippe auf die Karten nebenan und ich sage dir, was jede in der Praxis bedeutet.",
+    sec_term: "Frag mein Terminal", lead_term: "Tippe einen Befehl ein oder klicke auf einen der Buttons. Es gibt ein paar versteckte Geheimnisse.", btn_send: "Senden",
+    sec_exp: "Wo ich gearbeitet habe", lead_exp: "Zwei Praktikumserfahrungen, insgesamt 800 Stunden und sehr unterschiedliche Welten. Klicke auf jede, um sie zu öffnen.",
+    exp1_title: "L2 Support-Techniker", exp1_sub: "Praktikum · 320 Std. · 2025–2026",
+    exp1_l1: "<em>Überwachung und Metriken (Grafana / Kibana).</em> Dashboards ansehen, Grafiken interpretieren und Fehler erkennen, bevor der Benutzer sie bemerkt.",
+    exp1_l2: "<em>Wartung von Infrastruktur und Speicher.</em> Sicherstellen, dass Server Platz, Gesundheit und Kapazität haben. Was man nicht sieht, ohne das aber nichts funktioniert.",
+    exp1_l3: "<em>Datenbankadministration.</em> Die Daten des Unternehmens so pflegen, als wären es meine eigenen.",
+    exp1_l4: "<em>Identitäts- und Zugriffsverwaltung (IAM).</em> Wer kommt rein, wohin und mit welchen Berechtigungen. Mit anderen Worten: Ein Türsteher, aber für Systeme.",
+    exp1_l5: "<em>L2-Störungsbehebung.</em> Wenn das Problem nicht mehr an vorderster Front liegt, greife ich zur Lupe.",
+    exp2_title: "Webentwickler bei Cuidum", exp2_sub: "Praktikum · 480 Std.",
+    exp2_l1: "<em>Eine funktionale und optimierte Website</em> mit React, JavaScript und Git. Schnell, ordentlich und mit Änderungshistorie.",
+    exp2_l2: "<em>Intuitive und attraktive Benutzeroberfläche</em> immer mit Blick auf den Benutzer: Wenn man es erklären muss, ist es nicht fertig.",
+    exp2_l3: "<em>Backend und Frontend.</em> Ich musste an beiden Hälften des Kuchens arbeiten, was einem beibringt, die Kollegen zu verstehen.",
+    sec_edu: "Was ich studiert habe", sec_certs: "Zertifikate & Kurse", cert_drv: "Führerschein B1",
+    edu1_title: "Höherer Techniker für Netzwerksystemadministration", edu1_desc: "IES Font de San Lluís. Server, Netzwerke, Sicherheit und Dienste: Der Abschluss, bei dem alles zusammenkommt.",
+    edu2_title: "Techniker für Mikrocomputersysteme und Netzwerke", edu2_desc: "IES Font de San Lluís. Wo alles begann: Hardware, Betriebssysteme und die ersten Netzwerke.",
+    sec_skills: "Mein Werkzeugkasten", lead_skills: "Wähle eine Kategorie und klicke auf die Werkzeuge, um sie zu markieren.",
+    sec_lang: "Sprachen", lang_es: "Spanisch", lang_val: "Valencianisch", lang_en: "Englisch", lvl_nat: "Muttersprache", lvl_med: "Mittelstufe", lang_lead: "Technisches Englisch verwende ich täglich (Dokumentation, Logs und Foren). Was ich weiter verbessere, sind meine Konversationsfähigkeiten.",
+    sec_out: "Wenn ich den Computer ausschalte", lead_out: "Ich habe einen großen Teil meines Lebens mit Sport verbracht und ich reise auch sehr gerne.",
+    hob1_t: "Schwimmen", hob1_p: "Wo ich gelernt habe, dass Beständigkeit Eile schlägt, genau wie bei Systemen.",
+    hob2_t: "Boxen", hob2_p: "Druck standhalten und Ruhe bewahren, eine großartige Vorbereitung für einen Vorfall-reichen Donnerstag.",
+    hob3_t: "Padel", hob3_p: "Meine aktuelle Station. Es wird im Team gespielt, erfordert Kommunikation und es gibt immer eine Revanche.",
+    hob4_t: "Reisen", hob4_p: "Neue Orte und Leute kennenlernen. Meine liebste Art, die Umgebung zu wechseln.",
+    sec_contact: "Lass uns reden", lead_contact: "Wenn du ein Praktikum, eine Stelle oder ein seltsames Problem auf einem Server hast, schreib mir.", btn_copy: "E-Mail kopieren", btn_email: "E-Mail senden",
+    footer: "Handgemacht mit HTML, CSS und JavaScript · Hugo Romero Bergillo",
+    tap_view: "Tippen zum Ansehen", site_visit: "Website besuchen ↗", term_ph: "schreibe help", term_welcome: "Willkommen. Schreibe help, um zu sehen, was ich kann.", term_err: "Befehl nicht gefunden:",
+    roles: ['L2 Support-Techniker','Systemadmin in Ausbildung','KI- & MLOps-Lehrling','Vorfall-Jäger','Padel-Spieler'],
+    traits: [['Gesellig','Mit dem Benutzer zu sprechen, ist auch Teil der Problemlösung.'],['Pünktlich','Wenn ich 9:00 sage, bin ich um 8:55 online.'],['Fleißig','Ich habe keine Angst vor langer Arbeit, ich habe Angst vor schlechter Arbeit.'],['Einfallsreich','Wenn die Standardlösung versagt, ist es Zeit, eine bessere zu erfinden.'],['Entschlossen','Ein Problem ist nur eine Frage, auf die noch eine Antwort gefunden werden muss.']],
+    skillsData: {
+      'Systeme & Support': {t:['Linux','Windows Server','Identity Management (IAM)','Routing & Switching (CCNA)','Grafana','Kibana','Metriken & Logs','L2 Störungen'],b:'Alles am Laufen halten, Zugänge sicherstellen und Probleme erkennen, bevor sie auftauchen.'},
+      'Daten & Big Data': {t:['Apache Spark (PySpark)','ETL Pipelines','Python','Pandas','NumPy','SQL','NoSQL','n8n','Make'],b:'Berge von unordentlichen Daten nehmen und in etwas Nützliches verwandeln. Und das Wiederkehrende automatisieren, denn das Leben ist kurz.'},
+      'KI & Deployment': {t:['Scikit-Learn','PyTorch','TensorFlow','Neuronale Netze','Docker','FastAPI','Git'],b:'Modelle trainieren, in einen Container packen und per API bereitstellen. Ein Modell, das auf dem Laptop feststeckt, hilft niemandem.'},
+      'Web': {t:['React','JavaScript','Git','Frontend','Backend','UI Design'],b:'Schnelle und ansprechende Seiten, mit UX als Priorität. Und nicht nur in der Theorie: Ich habe zwei Websites erstellt, die jetzt online sind.',s:[
+        ['Scout-Gruppe Wig-Wam','https://gswigwam.com/','Die Website der Pfadfindergruppe Benicalap: Wer sie sind, Geschichte, Dokumente und Kontakt.'],
+        ['Gorilas Boxing Club','https://gorilasboxingclub.es/','Eine Boxclub-Website: Club-Infos, Trainingszeiten, Preise, Community und Mitgliederbereich.']]}
+    },
+    termCmds: {
+      help: 'Befehle: whoami, skills, exp, sport, sprachen, kontakt, sudo hire hugo, clear',
+      whoami: 'Hugo Romero. Systemtechniker mit einer neugierigen Seele. Gesellig, pünktlich, fleißig, einfallsreich und entschlossen.',
+      skills: 'Linux · Windows Server · IAM · CCNA · Grafana · Spark · Python · SQL/NoSQL · Docker · FastAPI · PyTorch · React · Git · n8n · Make',
+      exp: 'L2 Support (320 h, 2025-2026) und Web Dev bei Cuidum (480 h).',
+      sport: 'Schwimmen → Boxen → Padel. Natürliche Evolution.',
+      sprachen: 'Spanisch: Muttersprache. Valencianisch: Muttersprache. Englisch: Mittelstufe.',
+      kontakt: 'romerobergillo@gmail.com (oder scrolle ans Ende der Seite).',
+      'sudo hire hugo': '[sudo] Berechtigungen erteilt. Einstellung läuft... 100%. Gute Wahl.',
+      'sudo rm -rf /': 'Zugriff verweigert. Wir kümmern uns hier um Server. Auch um die von anderen.',
+      ls: 'ueber_mich.txt  erfahrung/  ausbildung/  skills/  padel_ball.png',
+      ping: 'Antwort von hugo: zeit=1 ms. Immer für einen Kaffee zu haben.',
+      coffee: '☕ Kaffee serviert. Neugier-Level +10.'
+    }
+  }
+};
+
+/* --- LÓGICA DE ACTUALIZACIÓN DE IDIOMA --- */
+const setLang = (lang) => {
+  currentLang = lang;
+  $$('.ls-btn').forEach(b => b.classList.remove('active'));
+  $(`#btn-${lang}`).classList.add('active');
+  
+  // Actualizar textos simples
+  $$('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) el.textContent = i18n[lang][key];
+  });
+  
+  // Actualizar textos con HTML interno (negritas, cursivas, etc)
+  $$('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+  });
+
+  // Placeholder terminal
+  $('#cmd').placeholder = i18n[lang].term_ph;
+  
+  // Actualizar Traits (Tarjetas personalidad)
+  renderTraits();
+  
+  // Actualizar Skills
+  renderSkills();
+  
+  // Reiniciar bienvenida terminal
+  out.innerHTML = '';
+  log(i18n[lang].term_welcome);
+
+  // Actualizar Roles
+  // La función tick() ya usa i18n[currentLang].roles en la siguiente vuelta.
+};
 
 /* Tema */
 let saved=null;try{saved=localStorage.getItem('theme')}catch(e){}
@@ -257,12 +494,20 @@ setTheme(saved||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light
 $('#theme').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
 
 /* Roles que se escriben solos */
-const roles=['Técnico de soporte N2','Admin de sistemas en formación','Aprendiz de IA y MLOps','Cazador de incidencias','Jugador de pádel'];
 const rEl=$('#role');
-if(reduce){rEl.textContent=roles[0]}else{let i=0,j=0,del=false;(function tick(){const w=roles[i];rEl.textContent=w.slice(0,j);
- if(!del&&j===w.length){del=true;return setTimeout(tick,1500)}
- if(del&&j===0){del=false;i=(i+1)%roles.length}
- j+=del?-1:1;setTimeout(tick,del?28:60)})()}
+let roleIdx=0, charIdx=0, isDel=false;
+if(reduce){rEl.textContent=i18n[currentLang].roles[0]}else{
+ (function tick(){
+  const roles = i18n[currentLang].roles;
+  if(roleIdx >= roles.length) roleIdx = 0; // Evitar fallos de index al cambiar idioma
+  const w = roles[roleIdx];
+  rEl.textContent = w.slice(0,charIdx);
+  if(!isDel && charIdx===w.length){isDel=true;return setTimeout(tick,1500)}
+  if(isDel && charIdx===0){isDel=false;roleIdx=(roleIdx+1)%roles.length}
+  charIdx += isDel?-1:1;
+  setTimeout(tick,isDel?28:60)
+ })()
+}
 
 /* Contadores del panel */
 $$('[data-n]').forEach(el=>{const n=+el.dataset.n,t0=performance.now();
@@ -274,55 +519,65 @@ function draw(){const d=pts.map((v,i)=>`${i?'L':'M'}${i*(300/29)},${80-v*.8}`).j
  $('#line').setAttribute('d',d);$('#area').setAttribute('d',d+'L300,80L0,80Z')}
 draw();if(!reduce)setInterval(()=>{pts.shift();pts.push(Math.max(30,Math.min(98,pts[pts.length-1]+(Math.random()-.4)*22)));draw()},900);
 
-/* Rasgos */
-const traits=[['Sociable','Hablar con el usuario también es parte de arreglar el problema.'],['Puntual','Si digo las 9:00, a las 8:55 ya estoy conectado.'],['Trabajador','No me asusta el trabajo largo, me asusta el que está mal hecho.'],['Imaginativo','Cuando la solución de manual no vale, toca inventar una mejor.'],['Resolutivo','Un problema es una pregunta con la respuesta aún por encontrar.']];
-$('#traits').innerHTML=traits.map(([a,b])=>`<button class="trait" aria-pressed="false"><b>${a}</b><span>Toca para ver</span><i hidden>${b}</i></button>`).join('');
-$$('.trait').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')==='true';b.setAttribute('aria-pressed',!on);b.querySelector('span').textContent=on?'Toca para ver':b.querySelector('i').textContent});
+/* Rasgos (Traits) dinámicos */
+function renderTraits() {
+  const tr = i18n[currentLang].traits;
+  const tapStr = i18n[currentLang].tap_view;
+  $('#traits').innerHTML = tr.map(([a,b])=>`<button class="trait" aria-pressed="false"><b>${a}</b><span>${tapStr}</span><i hidden>${b}</i></button>`).join('');
+  $$('.trait').forEach(b=>b.onclick=()=>{
+    const on=b.getAttribute('aria-pressed')==='true';
+    b.setAttribute('aria-pressed',!on);
+    b.querySelector('span').textContent=on ? tapStr : b.querySelector('i').textContent;
+  });
+}
+renderTraits();
 
-/* Terminal */
+/* Terminal Dinámica */
 const out=$('#out'),input=$('#cmd');
-const cmds={
- help:()=>'Comandos: whoami, skills, exp, deporte, idiomas, contacto, sudo hire hugo, clear',
- whoami:()=>'Hugo Romero. Técnico de sistemas con alma de curioso. Sociable, puntual, trabajador, imaginativo y resolutivo.',
- skills:()=>'Linux · Windows Server · IAM · CCNA · Grafana · Spark · Python · SQL/NoSQL · Docker · FastAPI · PyTorch · React · Git · n8n · Make',
- exp:()=>'Soporte N2 (320 h, 2025-2026) y Desarrollo web en Cuidum (480 h). Total: 800 horas de aprendizaje real.',
- deporte:()=>'Natación → boxeo → pádel. Evolución natural: de nadar solo a jugar por parejas.',
- idiomas:()=>'Español: nativo. Valenciano: nativo. Inglés: medio y subiendo.',
- contacto:()=>'romerobergillo@gmail.com (o baja hasta el final de la página).',
- 'sudo hire hugo':()=>'[sudo] permisos concedidos. Contratación en curso... 100%. Buena decisión.',
- 'sudo rm -rf /':()=>'Permiso denegado. Aquí cuidamos los servidores. Y los de otros también.',
- ls:()=>'sobre_mi.txt  experiencia/  formacion/  skills/  pelota_de_padel.png',
- ping:()=>'Respuesta desde hugo: tiempo=1 ms. Siempre disponible para un café.',
- coffee:()=>'☕ Café servido. Nivel de curiosidad +10.'
-};
 const log=(t,c)=>{const d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight};
-const run=raw=>{const c=raw.trim().toLowerCase();if(!c)return;log('$ '+raw,'c');
- if(c==='clear'){out.innerHTML='';return}
- cmds[c]?log(cmds[c]()):log(`comando no encontrado: ${c}. Escribe help.`,'e')};
+const run=raw=>{
+  const c=raw.trim().toLowerCase();
+  if(!c)return;
+  log('$ '+raw,'c');
+  if(c==='clear'){out.innerHTML='';return}
+  const cmds = i18n[currentLang].termCmds;
+  cmds[c] ? log(cmds[c]) : log(`${i18n[currentLang].term_err} ${c}.`,'e');
+};
 const send=()=>{const v=input.value;input.value='';run(v);input.focus()};
 $('#f').addEventListener('submit',e=>{e.preventDefault();send()});
 input.addEventListener('keydown',e=>{if((e.key==='Enter'||e.keyCode===13)&&!e.isComposing){e.preventDefault();send()}});
-$('#cmds').innerHTML=['help','whoami','skills','exp','deporte','coffee','sudo hire hugo'].map(c=>`<button class="chip">${c}</button>`).join('');
-$$('#cmds .chip').forEach(b=>b.onclick=()=>run(b.textContent));
-log('Bienvenido. Escribe help para ver qué sé hacer.');
+log(i18n[currentLang].term_welcome);
 
-/* Skills */
-const sk={
- 'Sistemas y soporte':{t:['Linux','Windows Server','Gestión de identidades (IAM)','Routing y switching (CCNA)','Grafana','Kibana','Análisis de métricas y logs','Incidencias N2'],b:'Que todo funcione, que nadie se quede sin acceso y que los problemas se detecten antes de dar la cara.'},
- 'Datos y Big Data':{t:['Apache Spark (PySpark)','Pipelines ETL','Python','Pandas','NumPy','SQL','NoSQL','n8n','Make'],b:'Coger montañas de datos desordenados y convertirlos en algo útil. Y automatizar lo repetitivo, porque la vida es corta.'},
- 'IA y despliegue':{t:['Scikit-Learn','PyTorch','TensorFlow','Redes neuronales','Docker','FastAPI','Git'],b:'Entrenar modelos, meterlos en un contenedor y ofrecerlos por API. Un modelo que no sale del portátil no ayuda a nadie.'},
- 'Web':{t:['React','JavaScript','Git','Frontend','Backend','Diseño de interfaz'],b:'Páginas rápidas y agradables, con la experiencia de usuario como prioridad. Y no solo en teoría: he creado dos webs que están online ahora mismo.',s:[
-  ['Grupo Scout Wig-Wam','https://gswigwam.com/','La web del grupo scout de Benicalap: quiénes son, su historia, las secciones, documentos y contacto, además de sus novedades de Instagram.'],
-  ['Gorilas Boxing Club','https://gorilasboxingclub.es/','La web de un club de boxeo: información del club, horarios y tarifas, comunidad, tienda y acceso a la cuenta de cada socio.']]}
-};
-let cur;
-const show=k=>{cur=k;$$('.tab').forEach(t=>t.setAttribute('aria-selected',t.textContent===k));
- $('#chips').innerHTML=sk[k].t.map(x=>`<button class="chip" aria-pressed="false">${x}</button>`).join('');
- $$('#chips .chip').forEach(c=>c.onclick=()=>c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')!=='true'));
- $('#blurb').textContent=sk[k].b;
- $('#sites').innerHTML=(sk[k].s||[]).map(([n,u,d])=>`<a class="site" href="${u}" target="_blank" rel="noopener"><h3>${n}</h3><p>${d}</p><u>Visitar la web ↗</u></a>`).join('')};
-$('#tabs').innerHTML=Object.keys(sk).map(k=>`<button class="tab" role="tab" aria-selected="false">${k}</button>`).join('');
-$$('.tab').forEach(t=>t.onclick=()=>show(t.textContent));show('Sistemas y soporte');
+// Renderizar botones (chips) fijos de la terminal
+const fixedCmds = ['help','whoami','skills','exp','coffee','sudo hire hugo'];
+$('#cmds').innerHTML = fixedCmds.map(c=>`<button class="chip">${c}</button>`).join('');
+$$('#cmds .chip').forEach(b=>b.onclick=()=>run(b.textContent));
+
+
+/* Skills Dinámicos */
+let currentSkillTab = null;
+function renderSkills() {
+  const sk = i18n[currentLang].skillsData;
+  const keys = Object.keys(sk);
+  // Mantener la tab actual si es posible, si no, la primera
+  if (!keys.includes(currentSkillTab)) currentSkillTab = keys[0];
+  
+  $('#tabs').innerHTML = keys.map(k=>`<button class="tab" role="tab" aria-selected="false">${k}</button>`).join('');
+  $$('.tab').forEach(t=>t.onclick=()=>showSkill(t.textContent));
+  showSkill(currentSkillTab);
+}
+
+function showSkill(k) {
+  const sk = i18n[currentLang].skillsData;
+  const visitStr = i18n[currentLang].site_visit;
+  currentSkillTab = k;
+  $$('.tab').forEach(t=>t.setAttribute('aria-selected',t.textContent===k));
+  $('#chips').innerHTML = sk[k].t.map(x=>`<button class="chip" aria-pressed="false">${x}</button>`).join('');
+  $$('#chips .chip').forEach(c=>c.onclick=()=>c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')!=='true'));
+  $('#blurb').textContent = sk[k].b;
+  $('#sites').innerHTML = (sk[k].s||[]).map(([n,u,d])=>`<a class="site" href="${u}" target="_blank" rel="noopener"><h3>${n}</h3><p>${d}</p><u>${visitStr}</u></a>`).join('');
+}
+renderSkills();
 
 /* Barras de idiomas al verse */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('.bar2 i').forEach(i=>i.style.width=i.dataset.w+'%');io.disconnect()}}));
