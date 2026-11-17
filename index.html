@@ -1,13 +1,335 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tu Nombre – CV</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hugo Romero · Sistemas, datos e IA</title>
+<meta name="description" content="CV interactivo de Hugo Romero: técnico de soporte N2, administración de sistemas, datos, IA y desarrollo web.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6FA;--panel:#fff;--ink:#14213D;--mute:#56627F;--line:#D9E0EC;--acc:#E8501B;--teal:#0E8077;--sun:#F5B400;--r:14px}
+:root[data-theme=dark]{--bg:#0E1729;--panel:#16223B;--ink:#EAF0FA;--mute:#A3B0CB;--line:#2A3963;--acc:#FF7A45;--teal:#3CC7BB;--sun:#FFC933}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;margin:0}
+h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:.4em}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:72px 0 8px}
+.lead{max-width:62ch;color:var(--mute)}
+nav{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:6px;height:56px;overflow-x:auto;white-space:nowrap}
+nav b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.2rem;margin-right:auto}
+nav a{color:var(--ink);text-decoration:none;padding:6px 10px;border-radius:8px;font-size:.95rem}
+nav a:hover{background:var(--line)}
+button{font:inherit;cursor:pointer;color:inherit}
+.theme{border:1px solid var(--line);background:var(--panel);border-radius:99px;width:40px;height:40px;flex:none}
+.btn{display:inline-block;padding:12px 20px;border-radius:99px;border:2px solid var(--ink);background:none;font-weight:700;text-decoration:none;color:var(--ink);transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.main{background:var(--acc);border-color:var(--acc);color:#fff}
+.hero{padding-top:48px;display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
+.me{display:flex;gap:20px;align-items:center;margin-bottom:18px}
+.me img,.ph{width:116px;height:116px;border-radius:50%;object-fit:cover;border:4px solid var(--acc);flex:none;background:var(--panel)}
+.ph{display:grid;place-items:center;font:800 2.2rem "Bricolage Grotesque"}
+.pill{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;border:1px solid var(--line);background:var(--panel);padding:4px 12px;border-radius:99px}
+.dot{width:10px;height:10px;border-radius:50%;background:#2BC16B;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px transparent;box-shadow:0 0 0 7px rgba(43,193,107,.25)}}
+h1{font-size:clamp(2.8rem,8vw,5.2rem);font-weight:800;letter-spacing:-.03em}
+.role{font:700 clamp(1.2rem,3vw,1.6rem) "Bricolage Grotesque",sans-serif;color:var(--acc);min-height:1.5em;margin:10px 0 14px}
+.role::after{content:"";display:inline-block;width:3px;height:1.1em;background:currentColor;margin-left:3px;vertical-align:-3px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.panel small{color:var(--mute);font-size:.82rem}
+.panel .v{font:800 2.4rem "Bricolage Grotesque",sans-serif;line-height:1.1}
+.wide{grid-column:1/-1}
+svg.sp{width:100%;height:80px;display:block}
+.sp path{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linejoin:round}
+.sp .a{fill:var(--teal);opacity:.14;stroke:none}
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
+.about p{margin:0 0 1em}
+.traits{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.trait{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:left;min-height:104px;transition:border-color .2s,transform .2s}
+.trait:hover{border-color:var(--acc)}
+.trait[aria-pressed=true]{border-color:var(--acc);transform:rotate(-1.2deg)}
+.trait b{display:block;font:800 1.15rem "Bricolage Grotesque"}
+.trait span{font-size:.9rem;color:var(--mute)}
+.term{background:#0B1222;color:#D8E3FF;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;font:15px/1.55 ui-monospace,Menlo,Consolas,monospace}
+.term .bar{padding:8px 14px;background:#18233F;display:flex;gap:7px;align-items:center}
+.term .bar i{width:11px;height:11px;border-radius:50%;background:#FF5F57}.term .bar i:nth-child(2){background:#FEBC2E}.term .bar i:nth-child(3){background:#28C840}
+#out{padding:14px 16px;height:270px;overflow:auto;white-space:pre-wrap}
+#out .c{color:#7CE3D6}#out .e{color:#FF9B73}
+.term form{display:flex;gap:8px;padding:0 16px 14px}
+.term label{color:#7CE3D6}
+.term input{flex:1;background:none;border:0;border-bottom:1px dashed #3A4A75;color:inherit;font:inherit;outline:0;min-width:0}
+.term input:focus{border-bottom-color:#7CE3D6}
+.term input::placeholder{color:#6F7FA6}
+.term form{align-items:center}
+.send{background:#7CE3D6;color:#0B1222;border:0;border-radius:8px;padding:6px 14px;font:700 14px ui-monospace,Menlo,Consolas,monospace;flex:none}
+.send:hover{background:#A6F0E6}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:6px 14px;font-size:.92rem}
+.chip:hover,.chip[aria-pressed=true],.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tab{border:2px solid var(--ink);background:none;border-radius:99px;padding:8px 16px;font-weight:700}
+.blurb{background:var(--panel);border-left:5px solid var(--sun);border-radius:8px;padding:12px 16px;margin-top:14px;max-width:70ch}
+.sites{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px}
+.sites:empty{display:none}
+.site{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:2px solid var(--line);border-radius:var(--r);padding:18px 20px;transition:transform .15s,border-color .15s}
+.site:hover{transform:translateY(-3px);border-color:var(--acc)}
+.site h3{font-size:1.25rem;margin-bottom:4px}
+.site p{margin:0 0 10px;color:var(--mute);font-size:.95rem}
+.site u{color:var(--acc);font-weight:700;font-size:.92rem;text-decoration:none}
+.tl{position:relative;margin-left:10px;padding-left:28px;border-left:3px solid var(--line)}
+.tl details{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;position:relative}
+.tl details::before{content:"";position:absolute;left:-39px;top:22px;width:15px;height:15px;border-radius:50%;background:var(--acc);border:3px solid var(--bg)}
+.tl summary{cursor:pointer;list-style:none}
+.tl summary::-webkit-details-marker{display:none}
+.tl summary h3{font-size:1.4rem}
+.tl summary span{color:var(--mute);font-size:.92rem}
+.tl summary::after{content:"+";float:right;font:800 1.6rem/1 "Bricolage Grotesque";color:var(--acc)}
+.tl details[open] summary::after{content:"–"}
+.tl ul{margin:14px 0 0;padding-left:20px}.tl li{margin-bottom:8px}
+.tl em{color:var(--teal);font-style:normal;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.card h3{font-size:1.2rem;margin-bottom:6px}.card p{margin:0;color:var(--mute);font-size:.95rem}
+.lang{display:grid;grid-template-columns:110px 1fr 80px;gap:12px;align-items:center;margin:10px 0}
+.bar2{height:12px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar2 i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--sun));border-radius:9px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.sport{font-size:2rem}
+.contact{text-align:center;padding-bottom:40px}
+.contact .cta{justify-content:center}
+footer{text-align:center;color:var(--mute);font-size:.9rem;padding:28px 20px 40px;border-top:1px solid var(--line);margin-top:40px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;transition:transform .3s;z-index:20}
+#toast.on{transform:translate(-50%,0)}
+@media(max-width:800px){.hero,.about{grid-template-columns:1fr}.lang{grid-template-columns:90px 1fr 64px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-  <h1>Tu Nombre</h1>
-  <!-- Perfil, experiencia, formación, habilidades, contacto -->
+<nav><div class="wrap">
+  <b>Hugo R.</b>
+  <a href="#sobre">Sobre mí</a><a href="#terminal">Terminal</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#skills">Skills</a><a href="#fuera">Fuera del código</a><a href="#contacto">Contacto</a>
+  <button class="theme" id="theme" aria-label="Cambiar entre tema claro y oscuro">🌓</button>
+</div></nav>
+
+<header class="wrap hero">
+  <div>
+    <div class="me">
+      <img src="foto.jpg" alt="Foto de Hugo Romero" onerror="this.outerHTML='<div class=ph>HR</div>'">
+      <span class="pill"><span class="dot"></span>Hugo está online</span>
+    </div>
+    <h1>Hugo Romero</h1>
+    <div class="role" id="role" aria-live="off"></div>
+    <p class="lead">Técnico de sistemas que monitoriza servidores por la mañana, entrena modelos de IA cuando le sobra tiempo y juega al pádel cuando todo está en verde. Este es mi CV, pero con botones.</p>
+    <div class="cta">
+      <a class="btn main" href="#contacto">Hablemos</a>
+      <a class="btn" href="CV-HugoRomero.pdf" download>Descargar CV en PDF</a>
+    </div>
+  </div>
+  <div class="dash" aria-label="Panel de estadísticas">
+    <div class="panel"><small>Horas de prácticas</small><div class="v" data-n="800">0</div></div>
+    <div class="panel"><small>Certificaciones y cursos</small><div class="v" data-n="5">0</div></div>
+    <div class="panel"><small>Idiomas hablados</small><div class="v" data-n="3">0</div></div>
+    <div class="panel"><small>Buen humor (uptime)</small><div class="v">99,9%</div></div>
+    <div class="panel wide"><small>Nivel de curiosidad · en directo</small>
+      <svg class="sp" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true"><path class="a" id="area"/><path id="line"/></svg>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+<section id="sobre">
+  <h2>Quién hay detrás del terminal</h2>
+  <div class="about">
+    <div>
+      <p>Me llamo Hugo y la informática es lo que más me apasiona. Soy de esas personas que ven un cable, un servidor o un error raro en un log y piensan: «vale, esto tiene una historia, vamos a descubrirla».</p>
+      <p>Empecé por lo básico, con el ciclo de <b>Sistemas Microinformáticos y Redes</b>, y seguí con <b>Administración de Sistemas Informáticos en Red</b>. Por el camino me ha dado por todo lo que rodea a los sistemas: redes, bases de datos, Big Data, automatización, inteligencia artificial y hasta desarrollo web. Lo bueno de saber un poco de todo es que cuando algo falla sé a quién preguntar. A veces, a mí mismo.</p>
+      <p>Me defino como sociable, puntual, trabajador, imaginativo y resolutivo. Toca las tarjetas de al lado y te cuento qué significa cada una en la práctica.</p>
+    </div>
+    <div class="traits" id="traits"></div>
+  </div>
+</section>
+
+<section id="terminal">
+  <h2>Pregúntale a mi terminal</h2>
+  <p class="lead">Escribe un comando o pulsa uno de los botones. Hay un par de secretos escondidos.</p>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div id="out" role="log"></div>
+    <form id="f"><label for="cmd">hugo@cv:~$</label><input id="cmd" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send" placeholder="escribe help" aria-label="Comando"><button type="submit" class="send">Enviar</button></form>
+  </div>
+  <div class="chips" id="cmds"></div>
+</section>
+
+<section id="experiencia">
+  <h2>Dónde he estado trabajando</h2>
+  <p class="lead">Dos experiencias de prácticas, 800 horas en total y mundos muy distintos. Pulsa en cada una para abrirla.</p>
+  <div class="tl">
+    <details open>
+      <summary><h3>Técnico de soporte N2</h3><span>Prácticas · 320 h · 2025–2026</span></summary>
+      <ul>
+        <li><em>Monitorización y métricas (Grafana / Kibana).</em> Mirar paneles, interpretar gráficas y detectar que algo se tuerce antes de que lo note el usuario.</li>
+        <li><em>Mantenimiento de infraestructura y almacenamiento.</em> Que los servidores tengan sitio, salud y espacio. Lo que no se ve, pero sin lo cual nada funciona.</li>
+        <li><em>Administración de bases de datos.</em> Cuidar los datos de la empresa como si fueran los míos.</li>
+        <li><em>Gestión de identidades y accesos.</em> Quién entra, adónde y con qué permisos. Dicho de otra forma: portero de discoteca, pero de sistemas.</li>
+        <li><em>Resolución de incidencias N2.</em> Cuando el problema ya no es de primera línea, entro yo con la lupa.</li>
+      </ul>
+    </details>
+    <details>
+      <summary><h3>Desarrollador web en Cuidum</h3><span>Prácticas · 480 h</span></summary>
+      <ul>
+        <li><em>Una web funcional y optimizada</em> con React, JavaScript y Git. Rápida, ordenada y con historial de cambios.</li>
+        <li><em>Interfaz intuitiva y atractiva</em> pensando siempre en quien la usa: si hay que explicarla, no está terminada.</li>
+        <li><em>Backend y frontend.</em> Me tocó trabajar las dos mitades de la tarta, y eso te enseña a entender al compañero de enfrente.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section id="formacion">
+  <h2>Lo que he estudiado</h2>
+  <div class="cards">
+    <div class="card"><h3>Técnico Superior en Administración de Sistemas Informáticos en Red</h3><p>IES Font de San Lluís. Servidores, redes, seguridad y servicios: el ciclo donde todo se junta.</p></div>
+    <div class="card"><h3>Técnico en Sistemas Microinformáticos y Redes</h3><p>IES Font de San Lluís. Donde empezó todo: hardware, sistemas y las primeras redes.</p></div>
+  </div>
+  <h3 style="margin:28px 0 4px;font-size:1.4rem">Certificaciones y cursos</h3>
+  <div class="chips">
+    <span class="chip">CCNA 1 &amp; 2</span><span class="chip">Introduction to Cybersecurity</span><span class="chip">Linux Essentials</span><span class="chip">IT Essentials</span><span class="chip">AWS Technical Essentials</span><span class="chip">Permiso de conducir B1</span>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Mi caja de herramientas</h2>
+  <p class="lead">Elige una categoría y pulsa en las herramientas para marcarlas.</p>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="chips" id="chips"></div>
+  <p class="blurb" id="blurb"></p>
+  <div class="sites" id="sites"></div>
+</section>
+
+<section id="idiomas">
+  <h2>Idiomas</h2>
+  <div class="lang"><b>Español</b><div class="bar2"><i data-w="100"></i></div><span>Nativo</span></div>
+  <div class="lang"><b>Valenciano</b><div class="bar2"><i data-w="100"></i></div><span>Nativo</span></div>
+  <div class="lang"><b>Inglés</b><div class="bar2"><i data-w="55"></i></div><span>Medio</span></div>
+  <p class="lead">El inglés técnico lo uso a diario (documentación, logs y foros). Lo que sigo mejorando es la conversación.</p>
+</section>
+
+<section id="fuera">
+  <h2>Cuando apago el ordenador</h2>
+  <p class="lead">He pasado buena parte de mi vida practicando deporte, y también me encanta viajar.</p>
+  <div class="cards">
+    <div class="card"><div class="sport">🏊</div><h3>Natación</h3><p>Donde aprendí que la constancia gana a las prisas, igual que en sistemas.</p></div>
+    <div class="card"><div class="sport">🥊</div><h3>Boxeo</h3><p>Aguantar la presión y mantener la calma, una gran preparación para un jueves de incidencias.</p></div>
+    <div class="card"><div class="sport">🎾</div><h3>Pádel</h3><p>Mi parada actual. Se juega en equipo, hay que comunicarse y siempre hay revancha.</p></div>
+    <div class="card"><div class="sport">✈️</div><h3>Viajar</h3><p>Conocer sitios y gente nueva. Mi forma favorita de cambiar de entorno.</p></div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <h2>¿Hablamos?</h2>
+  <p class="lead" style="margin:0 auto 20px">Si tienes unas prácticas, un puesto o un problema raro en un servidor, escríbeme.</p>
+  <div class="cta">
+    <button class="btn main" id="copy">Copiar mi email</button>
+    <a class="btn" href="mailto:romerobergillo@gmail.com">Enviar correo</a>
+    <a class="btn" href="https://www.linkedin.com/in/hugo-romero-bergillo/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+</main>
+<footer>Hecho a mano con HTML, CSS y JavaScript · Hugo Romero Bergillo</footer>
+<div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)};
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* Tema */
+let saved=null;try{saved=localStorage.getItem('theme')}catch(e){}
+const setTheme=t=>{document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}};
+setTheme(saved||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+$('#theme').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+
+/* Roles que se escriben solos */
+const roles=['Técnico de soporte N2','Admin de sistemas en formación','Aprendiz de IA y MLOps','Cazador de incidencias','Jugador de pádel'];
+const rEl=$('#role');
+if(reduce){rEl.textContent=roles[0]}else{let i=0,j=0,del=false;(function tick(){const w=roles[i];rEl.textContent=w.slice(0,j);
+ if(!del&&j===w.length){del=true;return setTimeout(tick,1500)}
+ if(del&&j===0){del=false;i=(i+1)%roles.length}
+ j+=del?-1:1;setTimeout(tick,del?28:60)})()}
+
+/* Contadores del panel */
+$$('[data-n]').forEach(el=>{const n=+el.dataset.n,t0=performance.now();
+ (function f(t){const p=reduce?1:Math.min((t-t0)/1400,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)});
+
+/* Gráfica de curiosidad en vivo */
+const pts=Array.from({length:30},()=>55+Math.random()*30);
+function draw(){const d=pts.map((v,i)=>`${i?'L':'M'}${i*(300/29)},${80-v*.8}`).join('');
+ $('#line').setAttribute('d',d);$('#area').setAttribute('d',d+'L300,80L0,80Z')}
+draw();if(!reduce)setInterval(()=>{pts.shift();pts.push(Math.max(30,Math.min(98,pts[pts.length-1]+(Math.random()-.4)*22)));draw()},900);
+
+/* Rasgos */
+const traits=[['Sociable','Hablar con el usuario también es parte de arreglar el problema.'],['Puntual','Si digo las 9:00, a las 8:55 ya estoy conectado.'],['Trabajador','No me asusta el trabajo largo, me asusta el que está mal hecho.'],['Imaginativo','Cuando la solución de manual no vale, toca inventar una mejor.'],['Resolutivo','Un problema es una pregunta con la respuesta aún por encontrar.']];
+$('#traits').innerHTML=traits.map(([a,b])=>`<button class="trait" aria-pressed="false"><b>${a}</b><span>Toca para ver</span><i hidden>${b}</i></button>`).join('');
+$$('.trait').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')==='true';b.setAttribute('aria-pressed',!on);b.querySelector('span').textContent=on?'Toca para ver':b.querySelector('i').textContent});
+
+/* Terminal */
+const out=$('#out'),input=$('#cmd');
+const cmds={
+ help:()=>'Comandos: whoami, skills, exp, deporte, idiomas, contacto, sudo hire hugo, clear',
+ whoami:()=>'Hugo Romero. Técnico de sistemas con alma de curioso. Sociable, puntual, trabajador, imaginativo y resolutivo.',
+ skills:()=>'Linux · Windows Server · IAM · CCNA · Grafana · Spark · Python · SQL/NoSQL · Docker · FastAPI · PyTorch · React · Git · n8n · Make',
+ exp:()=>'Soporte N2 (320 h, 2025-2026) y Desarrollo web en Cuidum (480 h). Total: 800 horas de aprendizaje real.',
+ deporte:()=>'Natación → boxeo → pádel. Evolución natural: de nadar solo a jugar por parejas.',
+ idiomas:()=>'Español: nativo. Valenciano: nativo. Inglés: medio y subiendo.',
+ contacto:()=>'romerobergillo@gmail.com (o baja hasta el final de la página).',
+ 'sudo hire hugo':()=>'[sudo] permisos concedidos. Contratación en curso... 100%. Buena decisión.',
+ 'sudo rm -rf /':()=>'Permiso denegado. Aquí cuidamos los servidores. Y los de otros también.',
+ ls:()=>'sobre_mi.txt  experiencia/  formacion/  skills/  pelota_de_padel.png',
+ ping:()=>'Respuesta desde hugo: tiempo=1 ms. Siempre disponible para un café.',
+ coffee:()=>'☕ Café servido. Nivel de curiosidad +10.'
+};
+const log=(t,c)=>{const d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight};
+const run=raw=>{const c=raw.trim().toLowerCase();if(!c)return;log('$ '+raw,'c');
+ if(c==='clear'){out.innerHTML='';return}
+ cmds[c]?log(cmds[c]()):log(`comando no encontrado: ${c}. Escribe help.`,'e')};
+const send=()=>{const v=input.value;input.value='';run(v);input.focus()};
+$('#f').addEventListener('submit',e=>{e.preventDefault();send()});
+input.addEventListener('keydown',e=>{if((e.key==='Enter'||e.keyCode===13)&&!e.isComposing){e.preventDefault();send()}});
+$('#cmds').innerHTML=['help','whoami','skills','exp','deporte','coffee','sudo hire hugo'].map(c=>`<button class="chip">${c}</button>`).join('');
+$$('#cmds .chip').forEach(b=>b.onclick=()=>run(b.textContent));
+log('Bienvenido. Escribe help para ver qué sé hacer.');
+
+/* Skills */
+const sk={
+ 'Sistemas y soporte':{t:['Linux','Windows Server','Gestión de identidades (IAM)','Routing y switching (CCNA)','Grafana','Kibana','Análisis de métricas y logs','Incidencias N2'],b:'Que todo funcione, que nadie se quede sin acceso y que los problemas se detecten antes de dar la cara.'},
+ 'Datos y Big Data':{t:['Apache Spark (PySpark)','Pipelines ETL','Python','Pandas','NumPy','SQL','NoSQL','n8n','Make'],b:'Coger montañas de datos desordenados y convertirlos en algo útil. Y automatizar lo repetitivo, porque la vida es corta.'},
+ 'IA y despliegue':{t:['Scikit-Learn','PyTorch','TensorFlow','Redes neuronales','Docker','FastAPI','Git'],b:'Entrenar modelos, meterlos en un contenedor y ofrecerlos por API. Un modelo que no sale del portátil no ayuda a nadie.'},
+ 'Web':{t:['React','JavaScript','Git','Frontend','Backend','Diseño de interfaz'],b:'Páginas rápidas y agradables, con la experiencia de usuario como prioridad. Y no solo en teoría: he creado dos webs que están online ahora mismo.',s:[
+  ['Grupo Scout Wig-Wam','https://gswigwam.com/','La web del grupo scout de Benicalap: quiénes son, su historia, las secciones, documentos y contacto, además de sus novedades de Instagram.'],
+  ['Gorilas Boxing Club','https://gorilasboxingclub.es/','La web de un club de boxeo: información del club, horarios y tarifas, comunidad, tienda y acceso a la cuenta de cada socio.']]}
+};
+let cur;
+const show=k=>{cur=k;$$('.tab').forEach(t=>t.setAttribute('aria-selected',t.textContent===k));
+ $('#chips').innerHTML=sk[k].t.map(x=>`<button class="chip" aria-pressed="false">${x}</button>`).join('');
+ $$('#chips .chip').forEach(c=>c.onclick=()=>c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')!=='true'));
+ $('#blurb').textContent=sk[k].b;
+ $('#sites').innerHTML=(sk[k].s||[]).map(([n,u,d])=>`<a class="site" href="${u}" target="_blank" rel="noopener"><h3>${n}</h3><p>${d}</p><u>Visitar la web ↗</u></a>`).join('')};
+$('#tabs').innerHTML=Object.keys(sk).map(k=>`<button class="tab" role="tab" aria-selected="false">${k}</button>`).join('');
+$$('.tab').forEach(t=>t.onclick=()=>show(t.textContent));show('Sistemas y soporte');
+
+/* Barras de idiomas al verse */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('.bar2 i').forEach(i=>i.style.width=i.dataset.w+'%');io.disconnect()}}));
+io.observe($('#idiomas'));
+
+/* Copiar email */
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText('romerobergillo@gmail.com');toast('Email copiado ✔')}catch(e){toast('romerobergillo@gmail.com')}};
+</script>
 </body>
 </html>
